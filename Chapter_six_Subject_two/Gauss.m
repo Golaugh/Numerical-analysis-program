@@ -1,39 +1,66 @@
-function [x,k]=Gauss(A,b,x0,ep,N)
+function [x, k] = Gauss(A, b, x0, ep, N)
+% Gauss - Gauss-Seidel iterative method to solve the linear system Ax = b
+%
+% Inputs:
+% A    - Coefficient matrix
+% b    - Right-hand side vector
+% x0   - Initial guess for the solution (default is the zero vector)
+% ep   - Precision (default is 1e-6)
+% N    - Maximum number of iterations (default is 5000)
+%
+% Outputs:
+% x    - Solution vector
+% k    - Number of iterations taken
 
-%用于Gauss-seidel迭代法解线性方程组Ax=b
-%A，b,x0分别为系数矩阵，右端向量和初始向量（初始向量默认为零向量）
-%ep为精度（1e-3），N为最大迭代次数（默认500次），x返回数值解向量
+n = length(b);
 
-n=length(b);
-if nargin<5
-    N=5000;
+% Set default maximum iterations if N is not provided
+if nargin < 5
+    N = 5000;
 end
-if nargin<4
-    ep=1e-6;
+
+% Set default precision if ep is not provided
+if nargin < 4
+    ep = 1e-6;
 end
-if nargin<3
-    x0=zeros(n,1);
+
+% Set default initial guess to zero vector if x0 is not provided
+if nargin < 3
+    x0 = zeros(n, 1);
 end
-x=zeros(n,1);
-k=0;
-while k<N
-    for i=1:n
-        if i==1
-            x(1)=(b(1)-A(1,2:n)*x0(2:n))/A(1,1);
-        elseif i==n
-                x(n)=(b(n)-A(n,1:n-1)*x(1:n-1))/A(n,n);
+
+x = zeros(n, 1); % Initialize solution vector
+k = 0;           % Initialize iteration counter
+
+while k < N
+    for i = 1:n
+        if i == 1
+            % Update the first element of x
+            x(1) = (b(1) - A(1, 2:n) * x0(2:n)) / A(1, 1);
+        elseif i == n
+            % Update the last element of x
+            x(n) = (b(n) - A(n, 1:n-1) * x(1:n-1)) / A(n, n);
         else
-                x(i)=(b(i)-A(i,1:i-1)*x(1:i-1)-A(i,i+1:n)*x0(i+1:n))/A(i,i);
+            % Update the intermediate elements of x
+            x(i) = (b(i) - A(i, 1:i-1) * x(1:i-1) - A(i, i+1:n) * x0(i+1:n)) / A(i, i);
         end
     end
-    if norm(x-x0,inf)<ep
+    
+    % Check if the solution has converged within the specified tolerance
+    if norm(x - x0, inf) < ep
         break;
     end
-    x0=x;
-    k=k+1;
+    
+    % Update x0 for the next iteration
+    x0 = x;
+    k = k + 1;  % Increment iteration counter
 end
-if k==N
-    Warning('已到达迭代次数上限');
+
+% Display a warning if the maximum number of iterations is reached
+if k == N
+    warning('Maximum number of iterations reached');
 end
-disp(['k=',num2str(k)])
+
+% Display the number of iterations
+disp(['k = ', num2str(k)])
 end
