@@ -1,9 +1,9 @@
-%²´ËÉ·½³ÌÊ¹ÓÃSORµü´ú
+% Poisson equation using SOR iteration
 function q2_SOR(A,b,x0,eps,w,N)
-%¹¦ÄÜ£ºÓÃSORµü´ú·¨½ân½×ÏßĞÔ·½³Ì×éAx=b
+% Function: Solve the n-order linear system Ax=b using the SOR iteration method
 
-n=length(b); 
-x=ones(n,1);
+n = length(b); 
+x = ones(n,1);
 h1 = 1/10;  j1 = 1/10;  L1 = 1; 
 L_t1 = L1 / j1;
 for i = 1:L_t1
@@ -12,13 +12,13 @@ for i = 1:L_t1
     x((i-1)*10 + 1,1) = 1;
     x(i*10,1) = exp(i * h1);
 end
-k=0;
-%ÊäÈëÏµÊı¾ØÕóA£¬ÓÒ¶ËÏòÁ¿b,ÒÔ¼°³õÊ¼ÏòÁ¿x0£¬¾«¶Èeps,ÒÔ¼°×î´óµü´ú´ÎÊıN
-%Ä¬ÈÏÌõ¼ş
+k = 0;
+% Input the coefficient matrix A, right-hand vector b, initial vector x0, tolerance eps, and maximum number of iterations N
+% Default conditions
 h1 = 1/10;  j1 = 1/10;  L1 = 1; 
 L_x1 = 1 / h1;  L_t1 = L1 / j1;
-L_A = L_x1*L_t1;
-%´´½¨½âº¯ÊıÏòÁ¿
+L_A = L_x1 * L_t1;
+% Create the solution vector
 p_x = zeros(L_A,1);
 for i = 1:L_x1
     for j = 1:L_t1
@@ -26,26 +26,26 @@ for i = 1:L_x1
         p_x(p) = exp(i * h1 * j * j1);
     end
 end
-%µ±k¡ÜNÊ±£¬Ö´ĞĞµü´ú²½Öè
-while k<=N
-    %Ëã³öµÚk´Îµü´úµİÍÆÊ½
+% Perform the iteration while k â‰¤ N
+while k <= N
+    % Compute the iterative update for the k-th iteration
     for i = 2:9
         for j = 2:9
             p = (i-1)*10+j;
-            x(p)=x0(p) + ( w * (b(p)-A(p,1:p-1)*x(1:p-1)-A(p,p:n)*x0(p:n))/A(p,p) );
+            x(p) = x0(p) + ( w * (b(p) - A(p,1:p-1) * x(1:p-1) - A(p,p:n) * x0(p:n)) / A(p,p) );
         end
     end
-    k=k+1;
-    %Èô||x_k+1-x_k||£¼eps£¬ÔòËã·¨Í£Ö¹£¬Êä³ö·½³Ì×é½üËÆ½âx_k+1£¬·ñÔò¼ÌĞøµü´ú
-    min = norm(x-x0,inf);
-    if min<eps, break;end
+    k = k + 1;
+    % If ||x_(k+1) - x_k|| < eps, stop the algorithm and output the approximate solution x_(k+1), otherwise continue iterating
+    min = norm(x - x0, inf);
+    if min < eps, break; end
     x0 = x;
 end
-%Êä³ö·½³Ì×éµÄÊıÖµ½âºÍµü´úĞÅÏ¢¡£
-if k>N
-    disp(['µü´ú´ÎÊı=  £¬Ëã·¨³¬³ö×î´óµü´ú´ÎÊı£¡',num2str(k)]);
+% Output the numerical solution of the system and iteration information
+if k > N
+    disp(['Number of iterations=  ', num2str(k), ' , algorithm exceeded maximum iterations!']);
 else
-    disp(['µü´ú´ÎÊı= ',num2str(k)]);
+    disp(['Number of iterations= ', num2str(k)]);
     disp('-------------------------');
-    disp(['Óë½âº¯ÊıµÄÎó²î= ',num2str(norm(x-p_x,inf))]);
+    disp(['Error with the solution function= ', num2str(norm(x - p_x, inf))]);
 end
