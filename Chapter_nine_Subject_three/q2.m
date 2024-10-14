@@ -1,19 +1,19 @@
-%主函数(第二问)
-%设置基础条件
+% Main function (second question)
+% Set initial conditions
 format long
-t0 = 0; tf = 0.004; %t0, tf为区间
-Za = [1; 1; 0];     %x初值
+t0 = 0; tf = 0.004; % t0, tf are the interval limits
+Za = [1; 1; 0];     % Initial values for x
 h = 0.0001; 
-iter = 100;   %迭代次数
+iter = 100;   % Number of iterations
 
-%代入梯形方法求解
-[t,z] = Trapezoid(@equation, t0, tf , Za, h, iter);
+% Use the trapezoidal method to solve the system
+[t, z] = Trapezoid(@equation, t0, tf, Za, h, iter);
 
-%绘制图形
+% Plot the results
 figure(1)
-plot(t,z(:,1),'b',t,z(:,2), 'r',t,z(:,3), 'g--')
-title('迭代次数为100')
-legend('y1','y2','y3')
+plot(t, z(:,1), 'b', t, z(:,2), 'r', t, z(:,3), 'g--')
+title('Number of iterations: 100')
+legend('y1', 'y2', 'y3')
 figure(2)
-plot3(z(:,1),z(:,2),z(:,3));
-xlabel('x');ylabel('y');zlabel('z');
+plot3(z(:,1), z(:,2), z(:,3));
+xlabel('x'); ylabel('y'); zlabel('z');
