@@ -1,5 +1,5 @@
-%使用eig求解矩阵特征值
-%创建矩阵
+% Use eig to solve the matrix eigenvalues
+% Create matrix
 A = [10 7 8 7;
     7 5 6 5;
     8 6 10 9;
@@ -17,13 +17,15 @@ for i = 1:6
         C(i,j) = 1/(i+j-1);
     end
 end
-%求解矩阵特征值
+
+% Solve the matrix eigenvalues
 a = eig(A);
 b = eig(B);
 c = eig(C);
-%输出信息
-disp(A);disp("的特征值为:");disp(a);
+
+% Output information
+disp(A); disp("The eigenvalues are:"); disp(a);
 disp("----------------------")
-disp(B);disp("的特征值为:");disp(b);
+disp(B); disp("The eigenvalues are:"); disp(b);
 disp("----------------------")
-disp(C);disp("的特征值为:");disp(c);
+disp(C); disp("The eigenvalues are:"); disp(c);

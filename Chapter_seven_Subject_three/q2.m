@@ -1,25 +1,25 @@
-%使用牛顿法进行迭代
+% Use Newton's method for iteration
 function q2(N)
-%创建迭代向量并将其作为迭代初始点
+% Create the iteration vector and use it as the initial point for iteration
 x=zeros(3,1);
-x0 = input('请输入迭代向量初始点（默认为0）:');
+x0 = input('Please enter the initial point for the iteration vector (default is 0):');
 if x0
     x = x0;
 end
-%创建最小误差值
+% Create the minimum error value
 eps=10^-8;
-eps0 = input('请输入临界误差值（默认为10^-8）:');
+eps0 = input('Please enter the critical error value (default is 10^-8):');
 if eps0
-    x = eps0;
+    eps = eps0;
 end
-%创建导矩阵
+% Create the Jacobian matrix
 F = zeros(3,3);
-%创建中间矩阵
+% Create the intermediate vector
 b = zeros(3,1);
-%开始迭代
+% Start the iteration
 k = 0;
 while k < N
-    %更新导矩阵
+    % Update the Jacobian matrix
     F(1,1) = 3;
     F(1,2) = x(3)*sin(x(2)*x(3));
     F(1,3) = x(2)*sin(x(2)*x(3));
@@ -29,28 +29,33 @@ while k < N
     F(3,1) = -exp(-x(1)*x(2));
     F(3,2) = -exp(-x(1)*x(2));
     F(3,3) = 20;
-    %更新中间矩阵
+    
+    % Update the intermediate vector
     b(1) = 3*x(1)-cos(x(2)*x(3))-0.5;
     b(2) = x(1)^2-81*(x(2)+0.1)^2+sin(x(3))+1.06;
     b(3) = exp(-x(1)*x(2))+20*x(3)+10*pi/3-1;
-    %更新迭代步伐
+    
+    % Update the iteration step
     temp = (F^-1) * b;
-    %提前判断循环跳出条件
+    
+    % Preemptively check the exit condition for the loop
     min = norm(-temp,inf);
-    %将中间值传入迭代向量
+    % Transfer the intermediate values to the iteration vector
     for j = 1:3
         x(j) = x(j) - temp(j);
     end
-    %是否跳出循环
+    
+    % Check if the loop should exit
     if min<eps, break;end
     k = k + 1;
 end
-%展示循环次数，迭代结果
+
+% Display the number of iterations and the results
 if k>N
-    disp(['迭代次数=  ，算法超出最大迭代次数！',num2str(k)]);
+    disp(['Number of iterations=  , algorithm exceeded maximum iterations! ',num2str(k)]);
 else
-    disp(['迭代次数= ',num2str(k)]);
+    disp(['Number of iterations= ',num2str(k)]);
     disp('-------------------------');
-    disp('求得方程组的根为= ');
+    disp('The roots of the equation system are= ');
     disp(x);
 end
