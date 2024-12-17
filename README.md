@@ -1,38 +1,66 @@
-# Numerical-analysis-program
+# Numerical Analysis Methods Implementation
 
-This project demonstrates the implementation of various numerical analysis methods, showcasing the knowledge and skills acquired from recent lessons. 
+This repository contains implementations of various numerical methods learned during my Numerical Analysis course. It serves as both a practical demonstration of the concepts and a reference for future use.
 
-## Overview
+## Course Topics & Implementations
 
-The project contains several MATLAB functions and scripts that implement different numerical methods, including:
+### 1. Linear System Solvers
+- **Conjugate Gradient Method** (`CG.m`)
+  - Iterative method for solving sparse linear systems
+  - Particularly efficient for symmetric, positive-definite matrices
 
-1. **Gauss-Seidel Iteration Method**: This method is used to solve a system of linear equations iteratively.
+- **Gauss-Seidel Method**
+  - Iterative solution for linear equation systems
+  - Improved convergence over Jacobi method
 
-2. **Newton's Method**: An iterative method for finding successively better approximations to the roots (or zeroes) of a real-valued function.
+- **Successive Over-Relaxation** (`q2_SOR.m`)
+  - Enhanced version of Gauss-Seidel method
+  - Introduces relaxation parameter for faster convergence
 
-3. **Eigenvalue Calculation**: Functions to compute the eigenvalues of matrices using the `eig` function and the QR decomposition method.
+### 2. Root Finding Methods
+- **Fixed-Point Iteration** (`q1.m`)
+  - Simple iterative method for finding function roots
+  - Implementation includes convergence criteria
 
-4. **Runge-Kutta Method**: An implementation of the fourth-order Runge-Kutta method for solving ordinary differential equations (ODEs).
+- **Newton's Method**
+  - Quadratic convergence for well-behaved functions
+  - Requires function derivative
 
-5. **Trapezoid Method**: A numerical integration method for approximating the definite integral of a function.
+### 3. Eigenvalue Computation
+- Multiple implementations exploring different approaches:
+  - Built-in `eig` function usage
+  - QR decomposition method
+  - Applied to test matrices A, B, and C
 
-6. **Equation System**: A specific set of differential equations defined for use with the numerical methods.
+### 4. Differential Equations
+- **Runge-Kutta Method** (`Runge-Kutta.m`)
+  - Fourth-order implementation
+  - Handles initial value problems
+  - Higher accuracy compared to simpler methods
 
-## Code Files
+### 5. Numerical Integration
+- **Trapezoidal Rule** (`Trapezoid.m`)
+  - Implementation for definite integral approximation
+  - Error analysis included
 
-- **CG.m**: Implementation of the Conjugate Gradient method.
-- **q1.m**: Fixed-point iteration method to find the roots of a system of equations.
-- **q2_SOR.m**: Implementation of the Successive Over-Relaxation method.
-- **Eigenvalue calculations**: Scripts to compute the eigenvalues of matrices A, B, and C using various methods.
-- **Runge-Kutta.m**: Implementation of the Runge-Kutta method for solving ODEs.
-- **Trapezoid.m**: Implementation of the trapezoidal rule for numerical integration.
-- **equation.m**: Defines a system of equations for use with the numerical methods.
-- **Main functions**: Scripts to set initial conditions and plot results for both Runge-Kutta and trapezoidal methods.
+## Project Structure
+- Core implementation files (`.m` files)
+- Test cases and example problems
+- Supporting equation systems (`equation.m`)
+- Detailed documentation (`.docx`)
 
-## Documentation
+## Learning Outcomes
+Through this project, I've gained practical experience in:
+- Implementing various numerical methods
+- Understanding convergence properties
+- Error analysis and method selection
+- MATLAB programming for mathematical applications
 
-All subject descriptions and detailed explanations can be found in the accompanying `.docx` document.
+## Usage
+Each implementation includes:
+- Function documentation
+- Example usage
+- Error handling
+- Performance considerations
 
-## Conclusion
-
-This project serves as a proof of the numerical methods learned and their practical applications in solving mathematical problems. It showcases various techniques and their implementations in MATLAB.
+For detailed explanations and mathematical background, refer to the accompanying documentation.
